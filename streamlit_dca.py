@@ -1,5 +1,4 @@
 import streamlit as st
-import requests
 import pandas as pd
 import altair as alt
 import numpy as np
@@ -88,7 +87,7 @@ def make_graph(input_df):
 
 if __name__ == '__main__':
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([.3,.7])
 
     with col1:
         st.header("Inputs")
