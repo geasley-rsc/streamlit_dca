@@ -98,7 +98,7 @@ if __name__ == '__main__':
         t_input = st.checkbox('Input number of months', value=True)
         de_method = st.radio(
             label="Decline input method",
-            options=["Nominal", "Effective"],
+            options=["Nominal (Tangent)", "Effective (Secant)"],
             index=0
         )
 
@@ -115,8 +115,8 @@ if __name__ == '__main__':
     with col1:
         qi = st.number_input('Inital rate, volume/month', min_value=0, value=100, step=10, disabled=not qi_input)
         qf = st.number_input('Final rate, volume/month', min_value=0, value=100, max_value=qi, step=10, disabled=not qf_input)
-        ai = st.number_input('Initial decline (Nominal), %/Year', min_value=6, value=50, step=1,disabled=((not de_input) | (de_method!="Nominal")))
-        de = st.number_input('Initial decline (Effective), %/Year', min_value=6, value=50, max_value=100, step=1,disabled=((not de_input) | (de_method!="Effective")))
+        ai = st.number_input('Initial decline (Nominal/Tangent), %/Year', min_value=6, value=50, step=1,disabled=((not de_input) | (de_method!="Nominal (Tangent)")))
+        de = st.number_input('Initial decline (Effective/Secant), %/Year', min_value=6, value=50, max_value=100, step=1,disabled=((not de_input) | (de_method!="Effective (Secant)")))
         b = st.slider('B Factor', min_value=0.01, max_value=2.0, value=.5, step=.01)
         dmin = st.number_input('Minimum decline, %/Year',min_value=1, max_value=de, value=6,step=1)
         t_max = st.slider('Number of months', min_value=1, max_value=600, value=300, step=1, disabled=not t_input)
@@ -133,7 +133,7 @@ if __name__ == '__main__':
         if not de_input:
             ai = None
         else:
-            if de_method == 'Nominal':
+            if de_method == 'Nominal (Tangent)':
                 ai = ai/(100*12)
             else:
                 ai = 1/b*((1-de/100)**(-b)-1)
